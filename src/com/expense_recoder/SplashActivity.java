@@ -24,13 +24,9 @@ public class SplashActivity extends Activity {
 					e.printStackTrace();
 				} finally {
 					startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+					finish();
 				}
 			}
 		}).start();
-	}
-
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
 	}
 }
