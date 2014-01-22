@@ -32,6 +32,8 @@ public class HomeActivity extends Activity implements OnEditorActionListener,
 	}
 
 	private void initializeComponents() {
+		name_id = 0;
+		event_id = 0;
 		editTextTitle = (EditText) findViewById(R.id.editTextTitle);
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 		editTextTitle.setOnEditorActionListener(this);

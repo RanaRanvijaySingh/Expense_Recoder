@@ -21,97 +21,109 @@
         android:textStyle="bold|italic"
         android:visibility="gone" />
 
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/name_height"
-        android:layout_margin="10dp"
-        android:background="@drawable/linear_layout_shape"
-        android:orientation="horizontal" >
-
-        <View
-            android:layout_width="@dimen/event_width"
-            android:layout_height="@dimen/name_height" />
+        android:layout_height="wrap_content" >
 
         <LinearLayout
-            android:id="@+id/linearLayoutName"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/name_height"
+            android:layout_margin="6dp"
             android:background="@drawable/linear_layout_shape"
             android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/linearLayoutName"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/name_height"
+                android:background="@drawable/linear_layout_shape"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageViewAddName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/hello_world"
+                android:onClick="onClickAddName"
+                android:padding="8dp"
+                android:src="@drawable/add" />
+
+            <ImageView
+                android:id="@+id/imageViewSubstractName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/hello_world"
+                android:onClick="onClickSubstractName"
+                android:padding="8dp"
+                android:src="@drawable/substract" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageViewAddName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/hello_world"
-            android:onClick="onClickAddName"
-            android:padding="8dp"
-            android:src="@drawable/add" />
-
-        <ImageView
-            android:id="@+id/imageViewSubstractName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/hello_world"
-            android:onClick="onClickSubstractName"
-            android:padding="8dp"
-            android:src="@drawable/substract" />
-    </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:background="@drawable/linear_layout_shape"
         android:orientation="horizontal" >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="@dimen/event_width"
             android:layout_height="match_parent"
-            android:background="@drawable/linear_layout_shape"
-            android:orientation="vertical" >
+            android:layout_margin="6dp"
+            android:background="@drawable/linear_layout_shape" >
 
             <LinearLayout
-                android:id="@+id/linearLayoutEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/linear_layout_shape"
                 android:orientation="vertical" >
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1" >
-
-                <ImageView
-                    android:id="@+id/imageViewAddEvent"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/linearLayoutEvent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:contentDescription="@string/hello_world"
-                    android:onClick="onClickAddEvent"
-                    android:padding="8dp"
-                    android:src="@drawable/add" />
+                    android:orientation="vertical" >
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageViewSubstractEvent"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:contentDescription="@string/hello_world"
-                    android:onClick="onClickSubstractEvent"
-                  android:padding="8dp"
-                    android:src="@drawable/substract" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:orientation="horizontal"
+                    android:weightSum="1" >
 
-        <TableLayout
-            android:id="@+id/tableLayout"
+                    <ImageView
+                        android:id="@+id/imageViewAddEvent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:contentDescription="@string/hello_world"
+                        android:onClick="onClickAddEvent"
+                        android:padding="8dp"
+                        android:src="@drawable/add" />
+
+                    <ImageView
+                        android:id="@+id/imageViewSubstractEvent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:contentDescription="@string/hello_world"
+                        android:onClick="onClickSubstractEvent"
+                        android:padding="8dp"
+                        android:src="@drawable/substract" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:background="@drawable/linear_layout_shape"
+            android:orientation="horizontal" >
+
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
