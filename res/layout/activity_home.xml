@@ -32,13 +32,17 @@
             android:background="@drawable/linear_layout_shape"
             android:orientation="horizontal" >
 
-            <LinearLayout
-                android:id="@+id/linearLayoutName"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/name_height"
-                android:background="@drawable/linear_layout_shape"
-                android:orientation="horizontal" >
-            </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/table_background" >
+
+                <TableRow
+                    android:id="@+id/tableRowName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </TableRow>
+            </TableLayout>
 
             <ImageView
                 android:id="@+id/imageViewAddName"

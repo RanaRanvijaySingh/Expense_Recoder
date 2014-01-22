@@ -11,7 +11,6 @@ import com.expense_recoder.util.Constants;
 public class TableManager {
 
 	HomeActivity mContext;
-	private View view;
 	private TableLayout table;
 	private int row;
 	private int column;
@@ -61,7 +60,7 @@ public class TableManager {
 
 	private EditText addColumn() {
 		EditText editText = new EditText(mContext);
-		editText.setTextSize(Constants.TEXT_SIZE);
+		editText.setTextSize(Constants.TEXT_SIZE_TITLE);
 		editText.setText("hello");
 		return editText;
 	}

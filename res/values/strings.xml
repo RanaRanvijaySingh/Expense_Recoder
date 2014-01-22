@@ -7,5 +7,8 @@
     <string name="header">Header</string>
     <string name="hello_world">Hello world!</string>
     <string name="occasion_name">Occasion name</string>
+    <string name="rename_the_field">Rename the field.</string>
+    <string name="give_a_name">Give a name</string>
+    <string name="ok">OK</string>
 
 </resources>
