@@ -21,48 +21,59 @@
         android:textStyle="bold|italic"
         android:visibility="gone" />
 
-    <HorizontalScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/name_height"
-            android:layout_margin="6dp"
-            android:background="@drawable/linear_layout_shape"
-            android:orientation="horizontal" >
+        <View
+            android:layout_width="@dimen/event_width"
+            android:layout_height="match_parent" />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/table_background" >
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" >
 
-                <TableRow
-                    android:id="@+id/tableRowName"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/name_height"
+                android:layout_margin="6dp"
+                android:background="@drawable/linear_layout_shape"
+                android:orientation="horizontal" >
+
+                <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                </TableRow>
-            </TableLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_background" >
 
-            <ImageView
-                android:id="@+id/imageViewAddName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/hello_world"
-                android:onClick="onClickAddName"
-                android:padding="8dp"
-                android:src="@drawable/add" />
+                    <TableRow
+                        android:id="@+id/tableRowName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+                    </TableRow>
+                </TableLayout>
 
-            <ImageView
-                android:id="@+id/imageViewSubstractName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/hello_world"
-                android:onClick="onClickSubstractName"
-                android:padding="8dp"
-                android:src="@drawable/substract" />
-        </LinearLayout>
-    </HorizontalScrollView>
+                <ImageView
+                    android:id="@+id/imageViewAddName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/hello_world"
+                    android:onClick="onClickAddName"
+                    android:padding="8dp"
+                    android:src="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/imageViewSubstractName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/hello_world"
+                    android:onClick="onClickSubstractName"
+                    android:padding="8dp"
+                    android:src="@drawable/substract" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,12 +91,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/linearLayoutEvent"
+                <TableLayout
+                    android:id="@+id/tableLayoutEvent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_background" >
+                </TableLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,18 +127,23 @@
             </LinearLayout>
         </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_margin="6dp"
             android:background="@drawable/linear_layout_shape"
-            android:orientation="horizontal" >
+            android:fillViewport="true" >
 
-            <TableLayout
-                android:id="@+id/tableLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" >
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
 </LinearLayout>

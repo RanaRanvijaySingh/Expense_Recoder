@@ -29,11 +29,11 @@ public class TableManager {
 			existingRow = numberOfRow;
 			table.setShrinkAllColumns(true);
 			for (int i = 0; i < row; i++) {
-				TableRow tableRow = addTableRow();
+				TableRow tableRow = new TableRow(mContext);
 				for (int j = 0; j < column; j++) {
 					tableRow.addView(addColumn());
 				}
-				table.addView(tableRow);
+				table.addView(tableRow); 
 			}
 		}
 	}
@@ -52,16 +52,10 @@ public class TableManager {
 		row = numberOfRow - existingRow;
 	}
 
-	private TableRow addTableRow() {
-		TableRow tableRow = new TableRow(mContext);
-		tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
-		return tableRow;
-	}
-
 	private EditText addColumn() {
 		EditText editText = new EditText(mContext);
-		editText.setTextSize(Constants.TEXT_SIZE_TITLE);
-		editText.setText("hello");
+		editText.setTextSize(Constants.TEXT_SIZE_GENERAL);
+		editText.setText("con");
 		return editText;
 	}
 

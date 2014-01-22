@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -78,14 +80,22 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(R.layout.dialog_box);
 		dialog.setTitle(getResources().getString(R.string.app_name));
+		EditText editTextDialog = (EditText)dialog.findViewById(R.id.editTextDialog);
+		editTextDialog.setHint(((TextView)view).getText());
 		Button buttonDialog = (Button)dialog.findViewById(R.id.buttonDialogOk);
 		buttonDialog.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				EditText editTextDialog = (EditText)dialog.findViewById(R.id.editTextDialog);
-				((TextView)view).setText(editTextDialog.getText().toString());
-				dialog.dismiss();
+				String strEditText = editTextDialog.getText().toString();
+				if(strEditText.equals("")) {
+					
+				} else { 
+					((TextView)view).setText(editTextDialog.getText().toString());
+				}
 				
+				dialog.dismiss();
+
 			}
 		});
 		dialog.show();		
@@ -94,55 +104,49 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	public void onClickAddName(View view) {
 		LOG.i("clicked", "add name " + name_id);
 		TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
-		tableRowName.addView(getTextView(name_id));
+		tableRowName.addView(getTextView(name_id,Constants.NAME));
 		name_id++;
 	}
 
-	private TextView getTextView(int id) {
+	private TextView getTextView(int id, String name) {
 		TextView textViewName = new TextView(this);
 		textViewName.setId(id);
 		textViewName.setPadding(10, 8, 10, 4);
 		textViewName.setTextSize(Constants.TEXT_SIZE_GENERAL);
-		textViewName.setHint("Name");
+		textViewName.setHint(name);
 		textViewName.setOnClickListener(this);
 		return textViewName;
 	}
 
 	public void onClickSubstractName(View view) {
-		// if (name_id > 0) {
-		// name_id--;
-		// LOG.i("clicked", "substract name " + name_id);
-		// LinearLayout linearLayoutName = (LinearLayout)
-		// findViewById(R.id.linearLayoutName);
-		// TextView textViewName = (TextView)
-		// linearLayoutName.findViewById(name_id);
-		// linearLayoutName.removeView(textViewName);
-		// }
+		if (name_id > 0) {
+			name_id--;
+			LOG.i("clicked", "substract name " + name_id);
+			TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
+			TextView textViewName = (TextView)tableRowName.findViewById(name_id);
+			tableRowName.removeView(textViewName);
+		}
 	}
 
 	public void onClickAddEvent(View view) {
 		LOG.i("clicked", "add event " + event_id);
-		// LinearLayout linearLayoutEvent = (LinearLayout)
-		// findViewById(R.id.linearLayoutEvent);
-		// TextView textViewEvent = new TextView(this);
-		// textViewEvent.setId(event_id);
-		// textViewEvent.setTextSize(Constants.TEXT_SIZE_GENERAL);
-		// textViewEvent.setHint("Event");
-		// linearLayoutEvent.addView(textViewEvent);
-		// event_id++;
-		// mTableManager.addRow(event_id, name_id);
+		TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
+		TableRow tableRowEvent = new TableRow(this);
+		tableRowEvent.setId(event_id);
+		tableRowEvent.addView(getTextView(event_id, Constants.EVENT));
+		tableLayoutEvent.addView(tableRowEvent);
+		event_id++;
+		mTableManager.addRow(event_id, name_id);
 	}
 
 	public void onClickSubstractEvent(View view) {
-		// if (event_id > 0) {
-		// event_id--;
-		// LOG.i("clicked", "substract event " + event_id);
-		// LinearLayout linearLayoutName = (LinearLayout)
-		// findViewById(R.id.linearLayoutEvent);
-		// TextView textViewEvent = (TextView)
-		// linearLayoutName.findViewById(event_id);
-		// linearLayoutName.removeView(textViewEvent);
-		// }
+		if (event_id > 0) {
+			event_id--;
+			LOG.i("clicked", "substract event " + event_id);
+			TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
+			TableRow tableRow =(TableRow) tableLayoutEvent.findViewById(event_id);
+			tableLayoutEvent.removeView(tableRow);
+		}
 	}
 
 	@Override
