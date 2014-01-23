@@ -39,7 +39,7 @@ public final class R {
         public static final int imageViewAddName=0x7f080003;
         public static final int imageViewSubstractEvent=0x7f080007;
         public static final int imageViewSubstractName=0x7f080004;
-        public static final int tableLayout=0x7f080008;
+        public static final int linearLayoutData=0x7f080008;
         public static final int tableLayoutEvent=0x7f080005;
         public static final int tableRowName=0x7f080002;
         public static final int textViewTitle=0x7f080001;

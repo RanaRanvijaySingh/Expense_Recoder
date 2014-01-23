@@ -127,23 +127,26 @@
             </LinearLayout>
         </ScrollView>
 
-        <HorizontalScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:background="@drawable/linear_layout_shape"
-            android:fillViewport="true" >
+            android:scrollbarSize="12dip" >
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent" >
+                android:layout_height="wrap_content"
+                android:scrollbarSize="12dip" >
 
-                <TableLayout
-                    android:id="@+id/tableLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </HorizontalScrollView>
+                <LinearLayout
+                    android:id="@+id/linearLayoutData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

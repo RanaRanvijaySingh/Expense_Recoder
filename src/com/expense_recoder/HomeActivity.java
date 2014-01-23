@@ -24,7 +24,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	private static int event_id = 0;
 	private EditText editTextTitle;
 	private TextView textViewTitle;
-	private TableManager mTableManager;
+	private RecordManager mRecordManager;
 	protected String strDialogString;
 
 	@Override
@@ -41,7 +41,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 		editTextTitle.setOnEditorActionListener(this);
 		textViewTitle.setOnClickListener(this);
-		mTableManager = new TableManager(this);
+		mRecordManager = new RecordManager(this);
 	}
 
 	@Override
@@ -102,10 +102,11 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	}
 
 	public void onClickAddName(View view) {
-		LOG.i("clicked", "add name " + name_id);
+		//LOG.i("clicked", "add name " + name_id);
 		TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
 		tableRowName.addView(getTextView(name_id,Constants.NAME));
 		name_id++;
+		mRecordManager.addEntry(event_id, name_id);
 	}
 
 	private TextView getTextView(int id, String name) {
@@ -121,7 +122,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	public void onClickSubstractName(View view) {
 		if (name_id > 0) {
 			name_id--;
-			LOG.i("clicked", "substract name " + name_id);
+			//LOG.i("clicked", "substract name " + name_id);
 			TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
 			TextView textViewName = (TextView)tableRowName.findViewById(name_id);
 			tableRowName.removeView(textViewName);
@@ -129,20 +130,20 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	}
 
 	public void onClickAddEvent(View view) {
-		LOG.i("clicked", "add event " + event_id);
+		//LOG.i("clicked", "add event " + event_id);
 		TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
 		TableRow tableRowEvent = new TableRow(this);
 		tableRowEvent.setId(event_id);
 		tableRowEvent.addView(getTextView(event_id, Constants.EVENT));
 		tableLayoutEvent.addView(tableRowEvent);
 		event_id++;
-		mTableManager.addRow(event_id, name_id);
+		mRecordManager.addEntry(event_id, name_id);
 	}
 
 	public void onClickSubstractEvent(View view) {
 		if (event_id > 0) {
 			event_id--;
-			LOG.i("clicked", "substract event " + event_id);
+			//LOG.i("clicked", "substract event " + event_id);
 			TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
 			TableRow tableRow =(TableRow) tableLayoutEvent.findViewById(event_id);
 			tableLayoutEvent.removeView(tableRow);

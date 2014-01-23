@@ -7,4 +7,5 @@ public class Constants {
 
 	public final static String NAME = "Name";
 	public final static String EVENT = "Event";
+	public static boolean IS_FIRST_TIME = true;
 }
