@@ -2,6 +2,7 @@ package com.expense_recoder;
 
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
@@ -19,7 +20,7 @@ public class RecordManager {
 	}
 
 	public void addEntry(int numberOfRow, int numberOfColumn) {
-		if(Constants.IS_FIRST_TIME && numberOfColumn > 0 && numberOfRow > 0 ) {
+		if(Constants.IS_ADDING_FIRST_TIME && numberOfColumn > 0 && numberOfRow > 0 ) {
 			LOG.v("RecordManager", "for the first time");
 			for (int i = 0; i < numberOfColumn; i++) {
 				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
@@ -29,18 +30,19 @@ public class RecordManager {
 					linearLayoutColumn.addView(addField());
 				}
 				linearLayoutData.addView(linearLayoutColumn);
-				Constants.IS_FIRST_TIME = false;
+				Constants.IS_ADDING_FIRST_TIME = false;
 				setExistingRowColumnValue(numberOfRow,numberOfColumn);
 			}
 		} else if( numberOfColumn > 0 && numberOfRow > 0 ){ 
-			if( numberOfRow-existingRow > 0 ) {
+			if( numberOfRow > existingRow ) {
 				LOG.v("RecordManager", "additional row added");
 				for (int i = 0; i < numberOfColumn; i++) {
 					LinearLayout linearLayoutColumn = (LinearLayout)linearLayoutData.getChildAt(i);
 					linearLayoutColumn.addView(addField());
 				}
 				setExistingRowColumnValue(numberOfRow,numberOfColumn);
-			} else if (  numberOfColumn-existingColumn > 0 ) {
+			} 
+			if (  numberOfColumn > existingColumn ) {
 				LOG.v("RecordManager", "additional column added");
 				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
 				linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
@@ -54,16 +56,51 @@ public class RecordManager {
 		}
 	}
 
-	private void setExistingRowColumnValue(int numberOfRow, int numberOfColumn) {
+	private void setExistingRowColumnValue(int numberOfRow, int numberOfColumn) { 
 		existingRow = numberOfRow;
 		existingColumn = numberOfColumn;		
 	}
 
 	private EditText addField() {
-		EditText editText = new EditText(mContext);
+		EditText editText = new EditText(mContext); 
+		editText.setSingleLine(true);
+		editText.setMaxWidth(120);
 		editText.setTextSize(Constants.TEXT_SIZE_GENERAL);
 		editText.setText("     ");
 		return editText;
+	}
+ 
+	public void deleteEntry(int numberOfRow, int numberOfColumn) {
+		if( numberOfColumn >= 0 && numberOfRow >= 0 ) {
+			if( existingColumn > numberOfColumn ) {
+				LOG.v("RecordManager", "removing column"+linearLayoutData.getChildCount());
+				LinearLayout linearLayoutColumn = (LinearLayout)linearLayoutData.getChildAt(numberOfColumn);
+				linearLayoutData.removeView(linearLayoutColumn);
+				existingColumn = numberOfColumn;
+				if(numberOfColumn==0) { 
+					resetAllComponents();
+				}
+			}
+			if(existingRow > numberOfRow ) {
+				LOG.v("RecordManager", "removing row"+linearLayoutData.getChildCount());
+				for (int i = 0; i < numberOfColumn; i++) {
+					LinearLayout linearLayoutColumn = (LinearLayout)linearLayoutData.getChildAt(i);
+					EditText editText = (EditText) linearLayoutColumn.getChildAt(numberOfRow);
+					linearLayoutColumn.removeView(editText);
+					existingRow = numberOfRow;
+				}
+				if(numberOfRow==0) {
+					resetAllComponents();
+				}
+			}
+		}
+	}
+
+	private void resetAllComponents() {
+		Constants.IS_ADDING_FIRST_TIME = true;
+		linearLayoutData.removeAllViews();
+		existingColumn=0;
+		existingRow=0;		
 	}
 
 }

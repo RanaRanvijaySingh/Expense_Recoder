@@ -20,12 +20,14 @@ import com.expense_recoder.util.LOG;
 public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener {
 
 	private static String strTitle = null;
-	private static int name_id = 0;
-	private static int event_id = 0;
+	private static int nameId = 0;
+	private static int eventId = 0;
 	private EditText editTextTitle;
 	private TextView textViewTitle;
 	private RecordManager mRecordManager;
 	protected String strDialogString;
+	private LinearLayout linearLayoutName;
+	private LinearLayout linearLayoutEvent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,8 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	}
 
 	private void initializeComponents() {
-		name_id = 0;
-		event_id = 0;
+		nameId = 0;
+		eventId = 0;
 		editTextTitle = (EditText) findViewById(R.id.editTextTitle);
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 		editTextTitle.setOnEditorActionListener(this);
@@ -95,18 +97,25 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 				}
 				
 				dialog.dismiss();
-
 			}
 		});
 		dialog.show();		
 	}
 
 	public void onClickAddName(View view) {
-		//LOG.i("clicked", "add name " + name_id);
-		TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
-		tableRowName.addView(getTextView(name_id,Constants.NAME));
-		name_id++;
-		mRecordManager.addEntry(event_id, name_id);
+		LOG.i("clicked", "add name " + nameId);
+		linearLayoutName = (LinearLayout)findViewById(R.id.linearLayoutName);
+		linearLayoutName.addView(getTextView(nameId,Constants.NAME));
+		nameId++;
+		mRecordManager.addEntry(eventId, nameId);
+	}
+	
+	public void onClickAddEvent(View view) {
+		LOG.i("clicked", "add event " + eventId);
+		linearLayoutEvent = (LinearLayout)findViewById(R.id.linearLayoutEvent);
+		linearLayoutEvent.addView(getTextView(eventId, Constants.EVENT));
+		eventId++;
+		mRecordManager.addEntry(eventId, nameId);
 	}
 
 	private TextView getTextView(int id, String name) {
@@ -120,34 +129,31 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	}
 
 	public void onClickSubstractName(View view) {
-		if (name_id > 0) {
-			name_id--;
-			//LOG.i("clicked", "substract name " + name_id);
-			TableRow tableRowName = (TableRow) findViewById(R.id.tableRowName);
-			TextView textViewName = (TextView)tableRowName.findViewById(name_id);
-			tableRowName.removeView(textViewName);
+		if (nameId > 0) {
+			nameId--;
+			deleteLastName(nameId); 
+			LOG.i("clicked", "substract name " + nameId);
+			mRecordManager.deleteEntry(eventId, nameId);
 		}
 	}
 
-	public void onClickAddEvent(View view) {
-		//LOG.i("clicked", "add event " + event_id);
-		TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
-		TableRow tableRowEvent = new TableRow(this);
-		tableRowEvent.setId(event_id);
-		tableRowEvent.addView(getTextView(event_id, Constants.EVENT));
-		tableLayoutEvent.addView(tableRowEvent);
-		event_id++;
-		mRecordManager.addEntry(event_id, name_id);
+	public void deleteLastName(int name_id) {
+		TextView textView =(TextView)linearLayoutName.getChildAt(name_id);
+		linearLayoutName.removeView(textView);
 	}
 
 	public void onClickSubstractEvent(View view) {
-		if (event_id > 0) {
-			event_id--;
-			//LOG.i("clicked", "substract event " + event_id);
-			TableLayout tableLayoutEvent = (TableLayout)findViewById(R.id.tableLayoutEvent);
-			TableRow tableRow =(TableRow) tableLayoutEvent.findViewById(event_id);
-			tableLayoutEvent.removeView(tableRow);
+		if (eventId > 0) {
+			eventId--;
+			mRecordManager.deleteEntry(eventId, nameId);
+			deleteLastEvent(eventId);
+			LOG.i("clicked", "substract event " + eventId);
 		}
+	}
+
+	public void deleteLastEvent(int event_id) {
+		TextView textView =(TextView)linearLayoutEvent.getChildAt(event_id);
+		linearLayoutEvent.removeView(textView);
 	}
 
 	@Override
