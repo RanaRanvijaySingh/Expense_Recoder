@@ -12,12 +12,16 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 	private static final String TAG = GetField.class.getName();
 	private static final String DATABASE_NAME = "expenser-recorder";
 	private static final int DATABASE_VERSION = 1;
+	public static String DATABASE_TABLE = null;
 	
 	private static String DATABASE_CREATE;
 	private static String DATABASE_UPGRADE;
 	
-	public DataBaseHelper(Context context,String[] names,String[] events) {
+	public static final String KEY_ROW_ID = "_id";
+	
+	public DataBaseHelper(Context context,String tableName, String[] names,String[] events) {
 		super(context, DATABASE_NAME,null, DATABASE_VERSION);
+		DataBaseHelper.DATABASE_TABLE = tableName;
 		DataBaseHelper.DATABASE_CREATE = getCommandDatabaseCreate(names,events);
 		DataBaseHelper.DATABASE_UPGRADE = getCommandDatabaseUpgrade();
 	}
