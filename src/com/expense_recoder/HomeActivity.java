@@ -3,6 +3,7 @@ package com.expense_recoder;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +29,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	protected String strDialogString;
 	private LinearLayout linearLayoutName;
 	private LinearLayout linearLayoutEvent;
+	private DatabaseOperation mDataOperation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		editTextTitle.setOnEditorActionListener(this);
 		textViewTitle.setOnClickListener(this);
 		mRecordManager = new RecordManager(this);
+		mDataOperation = new DatabaseOperation(this);
 	}
 
 	@Override
@@ -163,36 +166,68 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 			} else {
 				String strTableName = strTitle.replace(" ", "_");
 				Toast.makeText(this, "Saving data.", Toast.LENGTH_SHORT).show();
-				DatabaseOperation databaseOperation = new DatabaseOperation(this, strTableName, getAllFields(Constants.NAMES), getAllFields(Constants.EVENTS));
+				for (int i = 0; i < eventId; i++) {
+					String [] strArrayOccasion = getOccasionRow(strTableName,i);
+					mDataOperation.insertIntoTableOccasion(strArrayOccasion);
+				}
+				mDataOperation.close();
 			}
 		}
 	}
 	
-	private String[] getAllFields(int field) {
-		String [] strArrayFields = null ;
-		int numberOfFields;
-		if (field == Constants.NAMES)
-			numberOfFields = linearLayoutName.getChildCount();
-		else 
-			numberOfFields = linearLayoutEvent.getChildCount();
-		strArrayFields = new String[numberOfFields];
-		for (int i = 0; i < numberOfFields; i++) {
-			TextView textView;
-			if (field == Constants.NAMES)
-				textView = (TextView)linearLayoutName.getChildAt(i);
-			else 
-				textView = (TextView)linearLayoutEvent.getChildAt(i);
-			if(textView.getText().toString().equals("")) {
-				if (field == Constants.NAMES)
-					strArrayFields[i] = "name_"+i;
-				else 
-					strArrayFields[i] = "event_"+i;
-			} else {
-				strArrayFields[i] = textView.getText().toString().replace(" ", "_");
-			}
+	private String[] getOccasionRow(String strTripName, int row) {
+		String [] strArrayOccasion = new String[4];
+		TextView mTextView = (TextView) linearLayoutEvent.getChildAt(row);
+		String strEventName = mTextView.getText().toString();
+		int intLastId = mDataOperation.getLastIdFromOccasion();
+		Log.v("last index is : ",intLastId+"");
+		
+		strArrayOccasion[0] = strTripName+intLastId;
+		strArrayOccasion[1] = strTripName;
+		strArrayOccasion[2] = strEventName+intLastId;
+		strArrayOccasion[3] = strEventName;
+		for (int column = 0; column < nameId; column++) {
+			mDataOperation.insertIntoTableRecord(getRecordRow(strArrayOccasion,row, column));
 		}
-		return strArrayFields;
+		
+		return strArrayOccasion;
 	}
+
+	private String[] getRecordRow(String[] strArrayOccasion,int row, int column) {
+		TextView mTextView = (TextView)linearLayoutName.getChildAt(column);
+		String [] strArrayRecord = new String[4];
+		strArrayRecord[0] = strArrayOccasion[0];
+		strArrayRecord[1] = strArrayOccasion[2];		
+		strArrayRecord[2] = mTextView.getText().toString();
+		strArrayRecord[3] = mRecordManager.getElementAt(row,column);
+		return strArrayRecord;
+	}
+	
+//	private String[] getAllFields(int field) {
+//		String [] strArrayFields = null ;
+//		int numberOfFields;
+//		if (field == Constants.NAMES)
+//			numberOfFields = linearLayoutName.getChildCount();
+//		else 
+//			numberOfFields = linearLayoutEvent.getChildCount();
+//		strArrayFields = new String[numberOfFields];
+//		for (int i = 0; i < numberOfFields; i++) {
+//			TextView textView;
+//			if (field == Constants.NAMES)
+//				textView = (TextView)linearLayoutName.getChildAt(i);
+//			else 
+//				textView = (TextView)linearLayoutEvent.getChildAt(i);
+//			if(textView.getText().toString().equals("")) {
+//				if (field == Constants.NAMES)
+//					strArrayFields[i] = "name_"+i;
+//				else 
+//					strArrayFields[i] = "event_"+i;
+//			} else {
+//				strArrayFields[i] = textView.getText().toString().replace(" ", "_");
+//			}
+//		}
+//		return strArrayFields;
+//	}
 
 	@Override
 	public void onBackPressed() {

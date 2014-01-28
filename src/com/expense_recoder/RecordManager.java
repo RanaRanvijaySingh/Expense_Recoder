@@ -103,4 +103,10 @@ public class RecordManager {
 		existingRow=0;		
 	}
 
+	public String getElementAt(int column, int row) {
+		LinearLayout mLayoutRow = (LinearLayout)linearLayoutData.getChildAt(row);
+		EditText mEditText = (EditText)mLayoutRow.getChildAt(column);
+		return mEditText.getText().toString();
+	}
+
 }
