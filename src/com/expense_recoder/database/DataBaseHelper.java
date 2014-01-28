@@ -23,15 +23,21 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 		super(context, DATABASE_NAME,null, DATABASE_VERSION);
 		DataBaseHelper.DATABASE_TABLE = tableName;
 		DataBaseHelper.DATABASE_CREATE = getCommandDatabaseCreate(names,events);
-		DataBaseHelper.DATABASE_UPGRADE = getCommandDatabaseUpgrade();
-	}
-	
-	private String getCommandDatabaseUpgrade() {
-		return null;
+		DataBaseHelper.DATABASE_UPGRADE = "DROP TABLE IF EXISTS "+ DATABASE_TABLE;
 	}
 
 	private String getCommandDatabaseCreate(String[] names, String[] events) {
-		return null;
+		String stringCreateCommand = "create table "+DATABASE_TABLE+"("+ KEY_ROW_ID +" integer primary key autoincrement,";
+		String strColumn = "";
+		for (int i = 0; i < events.length; i++) {
+			if (i == events.length-1)
+				strColumn = strColumn + events[i] +" text" + ");";
+			else
+				strColumn = strColumn + events[i] +" text" + ",";
+		}
+		stringCreateCommand = stringCreateCommand + strColumn;
+		LOG.v("create table ", stringCreateCommand);
+		return stringCreateCommand;
 	}
 	
 	@Override

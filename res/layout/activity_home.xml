@@ -26,9 +26,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <View
+        <Button
             android:layout_width="@dimen/event_width"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background_disable"
+            android:onClick="onClickSave"
+            android:text="@string/save" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -86,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                 <LinearLayout
+                <LinearLayout
                     android:id="@+id/linearLayoutEvent"
                     android:layout_width="@dimen/event_width"
                     android:layout_height="match_parent"

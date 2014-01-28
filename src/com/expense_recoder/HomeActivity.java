@@ -9,17 +9,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
+import com.expense_recoder.database.DatabaseOperation;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
 
 public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener {
 
-	private static String strTitle = null;
+	private static String strTitle = "No title";
 	private static int nameId = 0;
 	private static int eventId = 0;
 	private EditText editTextTitle;
@@ -48,7 +48,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		String strTitle = v.getText().toString();
+		strTitle = v.getText().toString();
 		if (!strTitle.equals("")) {
 			setTitleAsTextView(strTitle);
 		} else {
@@ -151,9 +151,47 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		}
 	}
 
-	public void deleteLastEvent(int event_id) {
-		TextView textView =(TextView)linearLayoutEvent.getChildAt(event_id);
+	public void deleteLastEvent(int event_id) { 
+		TextView textView =(TextView)linearLayoutEvent.getChildAt(event_id); 
 		linearLayoutEvent.removeView(textView);
+	}
+	
+	public void onClickSave(View view) {
+		if(nameId > 0 && eventId > 0) {
+			if(strTitle.equals("") || strTitle.equals("No title")) {
+				Toast.makeText(this, getResources().getString(R.string.give_occasion_name),Toast.LENGTH_LONG).show();
+			} else {
+				String strTableName = strTitle.replace(" ", "_");
+				Toast.makeText(this, "Saving data.", Toast.LENGTH_SHORT).show();
+				DatabaseOperation databaseOperation = new DatabaseOperation(this, strTableName, getAllFields(Constants.NAMES), getAllFields(Constants.EVENTS));
+			}
+		}
+	}
+	
+	private String[] getAllFields(int field) {
+		String [] strArrayFields = null ;
+		int numberOfFields;
+		if (field == Constants.NAMES)
+			numberOfFields = linearLayoutName.getChildCount();
+		else 
+			numberOfFields = linearLayoutEvent.getChildCount();
+		strArrayFields = new String[numberOfFields];
+		for (int i = 0; i < numberOfFields; i++) {
+			TextView textView;
+			if (field == Constants.NAMES)
+				textView = (TextView)linearLayoutName.getChildAt(i);
+			else 
+				textView = (TextView)linearLayoutEvent.getChildAt(i);
+			if(textView.getText().toString().equals("")) {
+				if (field == Constants.NAMES)
+					strArrayFields[i] = "name_"+i;
+				else 
+					strArrayFields[i] = "event_"+i;
+			} else {
+				strArrayFields[i] = textView.getText().toString().replace(" ", "_");
+			}
+		}
+		return strArrayFields;
 	}
 
 	@Override
