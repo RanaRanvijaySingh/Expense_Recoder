@@ -48,6 +48,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	private void initializeComponents() {
 		nameId = 0;
 		eventId = 0;
+		Constants.IS_ADDING_FIRST_TIME = true;
 		observableScrollViewEvent = (ObservableScrollView)findViewById(R.id.observableScrollViewEvent);
 		observableScrollViewData= (ObservableScrollView)findViewById(R.id.observableScrollViewData);
 		observableScrollViewEvent.setScrollViewListener(this);

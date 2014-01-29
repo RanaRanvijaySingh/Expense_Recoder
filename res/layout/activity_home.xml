@@ -23,8 +23,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="6dp"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
         android:orientation="horizontal" >
 
         <Button
@@ -38,13 +38,12 @@
             android:id="@+id/horizontalScrollViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" 
-            >
+            android:layout_margin="6dp"
+            android:scrollbars="none" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/name_height"
-                android:layout_margin="6dp"
                 android:background="@drawable/linear_layout_shape"
                 android:orientation="horizontal" >
 
@@ -73,7 +72,7 @@
                     android:padding="8dp"
                     android:src="@drawable/substract" />
             </LinearLayout>
-       </com.expense_recoder.ObservableHorizontalScrollView>
+        </com.expense_recoder.ObservableHorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -137,8 +136,8 @@
             android:background="@drawable/linear_layout_shape"
             android:scrollbarSize="12dip" >
 
-             <com.expense_recoder.ObservableHorizontalScrollView
-                 android:id="@+id/horizontalScrollViewData"
+            <com.expense_recoder.ObservableHorizontalScrollView
+                android:id="@+id/horizontalScrollViewData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbarSize="12dip" >
