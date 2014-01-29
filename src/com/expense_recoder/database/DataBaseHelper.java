@@ -30,9 +30,6 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 	private static final String DATABASE_NAME = "expense-reporter";
 	private static final int DATABASE_VERSION = 1;
 
-	public static final String OCCASION_TABLE_SELECT_ALL_ROW = "SELECT "+KEY_ROWID+" FROM "
-			+ DATABASE_TABLE_OCCASION;
-
 	private static final String DATABASE_CREATE_TABLE_OCCASION = "create table "
 			+ DATABASE_TABLE_OCCASION
 			+ "("
@@ -62,7 +59,9 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 			+ KEY_CONTRIBUTION 
 			+ " integer " 
 			+ ");";
-
+	
+	public static final String OCCASION_TABLE_SELECT_ALL_ROW = "SELECT "+KEY_ROWID+" FROM "+ DATABASE_TABLE_OCCASION;
+	public static final String OCCASION_TABLE_SELECT_TRIP_NAME = "SELECT "+KEY_TRIP_NAME+" FROM "+ DATABASE_TABLE_OCCASION;
 	private static final String DATABASE_UPGRADE_OCCASION = "DROP TABLE IF EXISTS "+ DATABASE_TABLE_OCCASION;
 	private static final String DATABASE_UPGRADE_RECORD = "DROP TABLE IF EXISTS "	+ DATABASE_TABLE_RECORD;
 

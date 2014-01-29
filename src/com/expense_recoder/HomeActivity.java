@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.expense_recoder.database.DataBaseHelper;
 import com.expense_recoder.database.DatabaseOperation;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
@@ -167,6 +168,10 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 			} else {
 				mDataOperation.open();
 				String strTableName = strTitle.replace(" ", "_");
+				if(mDataOperation.isTableAlreadyCreated(strTableName)) {
+					LOG.i("table check", "table already exists");
+					clearAllTheDataWithTripName(strTableName);
+				}
 				Toast.makeText(this, "Saving data.", Toast.LENGTH_SHORT).show();
 				for (int i = 0; i < eventId; i++) {
 					String [] strArrayOccasion = getOccasionRow(strTableName,i);
@@ -176,7 +181,15 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 			}
 		}
 	}
-	
+
+	private void clearAllTheDataWithTripName(String strTableName) {
+		String [] strArrayReceivedData = mDataOperation.getAllRowsWithTripName(DataBaseHelper.DATABASE_TABLE_OCCASION,strTableName);
+		for (int i = 0; i < strArrayReceivedData.length; i++) {
+			mDataOperation.deleteAllRowWithTripId(strArrayReceivedData[i]);
+			LOG.v("delete","deleted all record with trip id: "+strArrayReceivedData[i]);
+		}
+	}
+
 	private String[] getOccasionRow(String strTripName, int row) {
 		String [] strArrayOccasion = new String[4];
 		TextView mTextView = (TextView) linearLayoutEvent.getChildAt(row);
@@ -193,7 +206,6 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		for (int column = 0; column < nameId; column++) {
 			mDataOperation.insertIntoTableRecord(getRecordRow(strArrayOccasion,row, column));
 		}
-		
 		return strArrayOccasion;
 	}
 
@@ -207,32 +219,6 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		return strArrayRecord;
 	}
 	
-//	private String[] getAllFields(int field) {
-//		String [] strArrayFields = null ;
-//		int numberOfFields;
-//		if (field == Constants.NAMES)
-//			numberOfFields = linearLayoutName.getChildCount();
-//		else 
-//			numberOfFields = linearLayoutEvent.getChildCount();
-//		strArrayFields = new String[numberOfFields];
-//		for (int i = 0; i < numberOfFields; i++) {
-//			TextView textView;
-//			if (field == Constants.NAMES)
-//				textView = (TextView)linearLayoutName.getChildAt(i);
-//			else 
-//				textView = (TextView)linearLayoutEvent.getChildAt(i);
-//			if(textView.getText().toString().equals("")) {
-//				if (field == Constants.NAMES)
-//					strArrayFields[i] = "name_"+i;
-//				else 
-//					strArrayFields[i] = "event_"+i;
-//			} else {
-//				strArrayFields[i] = textView.getText().toString().replace(" ", "_");
-//			}
-//		}
-//		return strArrayFields;
-//	}
-
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

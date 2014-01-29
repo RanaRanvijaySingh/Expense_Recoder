@@ -13,14 +13,11 @@ import com.expense_recoder.util.LOG;
 public class DatabaseOperation {
 	
 	private static final String TAG = GetField.class.getName();
-
+	
 	private SQLiteDatabase database;
 	private DataBaseHelper dbHelper;
 	
-	private String[] allColumns = {DataBaseHelper.KEY_ROWID, DataBaseHelper.KEY_TRIP_ID_OCCASION, DataBaseHelper.KEY_TRIP_NAME,
-			DataBaseHelper.KEY_EVENT_ID_OCCASION,DataBaseHelper.KEY_EVENT_NAME };
-
-	public DatabaseOperation(Context context) {
+ 	public DatabaseOperation(Context context) {
 		dbHelper = new DataBaseHelper(context);
 		open();
 	}
@@ -65,10 +62,40 @@ public class DatabaseOperation {
 		Log.i(TAG, "data inserted into record table");
 	}
 
-//	public void deleteFromTable(long id) {
-//		database.delete(DataBaseHelper.DATABASE_TABLE, DataBaseHelper.KEY_ROWID
-//				+ " = " + id, null);
-//	}
+	public boolean isTableAlreadyCreated(String strTableName) {
+		Cursor mCursor = database.rawQuery(DataBaseHelper.OCCASION_TABLE_SELECT_TRIP_NAME,null);
+		if(mCursor == null) {
+			return false;
+		} else {
+			while(mCursor.moveToNext()) {
+				if (strTableName.equals(mCursor.getString(0))) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	public String[] getAllRowsWithTripName(String strTableName,String strTripName) {
+		String [] tableColumn = {DataBaseHelper.KEY_TRIP_ID_OCCASION};
+		String whereClause = DataBaseHelper.KEY_TRIP_NAME +" = ?";
+		Cursor mCursor = database.query(DataBaseHelper.DATABASE_TABLE_OCCASION, 
+				tableColumn, whereClause,new String[]{strTripName}, null	, null,null);
+		String [] strArrayTripIds = new String [mCursor.getCount()];
+		int i=0;
+		while(mCursor.moveToNext()) {
+			strArrayTripIds[i++] = mCursor.getString(0);
+		}
+		LOG.v(TAG,"Returning all trip names.");
+		return strArrayTripIds;
+	}
+
+	public void deleteAllRowWithTripId(String string) {
+		String whereClauseOccasion = DataBaseHelper.KEY_TRIP_ID_OCCASION+" = ?";
+		String whereClauseRecord= DataBaseHelper.KEY_TRIP_ID_RECORD+" = ?";
+		database.delete(DataBaseHelper.DATABASE_TABLE_OCCASION, whereClauseOccasion, new String []{string});
+		database.delete(DataBaseHelper.DATABASE_TABLE_RECORD, whereClauseRecord, new String []{string});
+	}
 
 }
 
