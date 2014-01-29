@@ -78,7 +78,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
-        <ScrollView
+        <com.expense_recoder.ObservableScrollView
+            android:id="@+id/observableScrollViewEvent"
             android:layout_width="@dimen/event_width"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
@@ -123,9 +124,10 @@
                         android:src="@drawable/substract" />
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.expense_recoder.ObservableScrollView>
 
-        <ScrollView
+        <com.expense_recoder.ObservableScrollView
+            android:id="@+id/observableScrollViewData"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="6dp"
@@ -144,7 +146,7 @@
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
-        </ScrollView>
+        </com.expense_recoder.ObservableScrollView>
     </LinearLayout>
 
 </LinearLayout>

@@ -64,8 +64,10 @@ public class RecordManager {
 	private EditText addField() {
 		EditText editText = new EditText(mContext); 
 		editText.setSingleLine(true);
-		editText.setMaxWidth(120);
-		editText.setTextSize(Constants.TEXT_SIZE_GENERAL);
+		editText.setTextSize(Constants.EDIT_TEXT_SIZE_GENERAL);
+		editText.setMaxWidth(Constants.WIDTH);
+		editText.setGravity(1);
+		editText.setMaxHeight(Constants.HEIGHT_EDIT_TEXT);
 		editText.setText("     ");
 		return editText;
 	}

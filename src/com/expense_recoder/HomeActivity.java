@@ -19,7 +19,7 @@ import com.expense_recoder.database.DatabaseOperation;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
 
-public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener {
+public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener,ScrollViewListener { 
 
 	private static String strTitle = "No title";
 	private static int nameId = 0;
@@ -31,6 +31,8 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	private LinearLayout linearLayoutName;
 	private LinearLayout linearLayoutEvent;
 	private DatabaseOperation mDataOperation;
+	private ObservableScrollView observableScrollViewEvent = null;
+	private ObservableScrollView observableScrollViewData = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,11 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	private void initializeComponents() {
 		nameId = 0;
 		eventId = 0;
+		observableScrollViewEvent = (ObservableScrollView)findViewById(R.id.observableScrollViewEvent);
+		observableScrollViewData= (ObservableScrollView)findViewById(R.id.observableScrollViewData);
+		observableScrollViewEvent.setScrollViewListener(this);
+		observableScrollViewData.setScrollViewListener(this);
+		
 		editTextTitle = (EditText) findViewById(R.id.editTextTitle);
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 		editTextTitle.setOnEditorActionListener(this);
@@ -124,13 +131,14 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	}
 
 	private TextView getTextView(int id, String name) {
-		TextView textViewName = new TextView(this);
-		textViewName.setId(id);
-		textViewName.setPadding(10, 8, 10, 4);
-		textViewName.setTextSize(Constants.TEXT_SIZE_GENERAL);
-		textViewName.setHint(name);
-		textViewName.setOnClickListener(this);
-		return textViewName;
+		TextView textView = new TextView(this);
+		textView.setId(id);
+		textView.setGravity(1);
+		textView.setPadding(10, 8, 10, 8);
+		textView.setTextSize(Constants.TEXT_SIZE_GENERAL);
+		textView.setHint(name);
+		textView.setOnClickListener(this);
+		return textView;
 	}
 
 	public void onClickSubstractName(View view) {
@@ -179,6 +187,8 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 				}
 				mDataOperation.close();
 			}
+		} else {
+			Toast.makeText(this, "There is not data to save.", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -222,5 +232,15 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
+	}
+
+	@Override
+	public void onScrollChanged(ObservableScrollView scrollView, int x, int y,int oldX, int oldY) {
+		
+		if (scrollView == observableScrollViewEvent) {
+			observableScrollViewData.scrollTo(x, y);
+		} else if(scrollView == observableScrollViewData){
+			observableScrollViewEvent.scrollTo(x, y);
+		}
 	}
 }
