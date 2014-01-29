@@ -47,6 +47,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		textViewTitle.setOnClickListener(this);
 		mRecordManager = new RecordManager(this);
 		mDataOperation = new DatabaseOperation(this);
+		mDataOperation.close();
 	}
 
 	@Override
@@ -164,6 +165,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 			if(strTitle.equals("") || strTitle.equals("No title")) {
 				Toast.makeText(this, getResources().getString(R.string.give_occasion_name),Toast.LENGTH_LONG).show();
 			} else {
+				mDataOperation.open();
 				String strTableName = strTitle.replace(" ", "_");
 				Toast.makeText(this, "Saving data.", Toast.LENGTH_SHORT).show();
 				for (int i = 0; i < eventId; i++) {
@@ -184,7 +186,9 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		
 		strArrayOccasion[0] = strTripName+intLastId;
 		strArrayOccasion[1] = strTripName;
-		strArrayOccasion[2] = strEventName+intLastId;
+		if (!strEventName.equals("")) {
+			strArrayOccasion[2] = strEventName+intLastId;
+		}
 		strArrayOccasion[3] = strEventName;
 		for (int column = 0; column < nameId; column++) {
 			mDataOperation.insertIntoTableRecord(getRecordRow(strArrayOccasion,row, column));

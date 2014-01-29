@@ -25,7 +25,7 @@ public class DatabaseOperation {
 		open();
 	}
 
-	private void open() {
+	public void open() {
 		database = dbHelper.getWritableDatabase();
 		Log.i(TAG, "database opened");
 	}
