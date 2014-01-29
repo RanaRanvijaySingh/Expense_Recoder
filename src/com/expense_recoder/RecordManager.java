@@ -25,6 +25,7 @@ public class RecordManager {
 			for (int i = 0; i < numberOfColumn; i++) {
 				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
 				linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
+				linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
 				linearLayoutColumn.setId(numberOfColumn);
 				for (int j = 0; j < numberOfRow; j++) {
 					linearLayoutColumn.addView(addField());
@@ -38,6 +39,7 @@ public class RecordManager {
 				LOG.v("RecordManager", "additional row added");
 				for (int i = 0; i < numberOfColumn; i++) {
 					LinearLayout linearLayoutColumn = (LinearLayout)linearLayoutData.getChildAt(i);
+					linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
 					linearLayoutColumn.addView(addField());
 				}
 				setExistingRowColumnValue(numberOfRow,numberOfColumn);
@@ -46,6 +48,7 @@ public class RecordManager {
 				LOG.v("RecordManager", "additional column added");
 				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
 				linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
+				linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
 				linearLayoutColumn.setId(numberOfColumn);
 				for (int i = 0; i < numberOfRow; i++) {
 					linearLayoutColumn.addView(addField());
@@ -65,7 +68,6 @@ public class RecordManager {
 		EditText editText = new EditText(mContext); 
 		editText.setSingleLine(true);
 		editText.setTextSize(Constants.EDIT_TEXT_SIZE_GENERAL);
-		editText.setMaxWidth(Constants.WIDTH);
 		editText.setGravity(1);
 		editText.setMaxHeight(Constants.HEIGHT_EDIT_TEXT);
 		editText.setText("     ");

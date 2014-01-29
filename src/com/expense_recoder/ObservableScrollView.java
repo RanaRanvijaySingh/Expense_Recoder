@@ -1,5 +1,7 @@
 package com.expense_recoder;
 
+import com.expense_recoder.interfaces.ScrollViewListener;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;

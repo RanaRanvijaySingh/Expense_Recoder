@@ -23,6 +23,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_margin="6dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
@@ -33,10 +34,12 @@
             android:onClick="onClickSave"
             android:text="@string/save" />
 
-        <HorizontalScrollView
+        <com.expense_recoder.ObservableHorizontalScrollView
+            android:id="@+id/horizontalScrollViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" >
+            android:scrollbars="none" 
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,7 +73,7 @@
                     android:padding="8dp"
                     android:src="@drawable/substract" />
             </LinearLayout>
-        </HorizontalScrollView>
+       </com.expense_recoder.ObservableHorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -134,7 +137,8 @@
             android:background="@drawable/linear_layout_shape"
             android:scrollbarSize="12dip" >
 
-            <HorizontalScrollView
+             <com.expense_recoder.ObservableHorizontalScrollView
+                 android:id="@+id/horizontalScrollViewData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbarSize="12dip" >
@@ -145,7 +149,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal" >
                 </LinearLayout>
-            </HorizontalScrollView>
+            </com.expense_recoder.ObservableHorizontalScrollView>
         </com.expense_recoder.ObservableScrollView>
     </LinearLayout>
 

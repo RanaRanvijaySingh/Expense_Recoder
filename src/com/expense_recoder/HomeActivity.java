@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import com.expense_recoder.database.DataBaseHelper;
 import com.expense_recoder.database.DatabaseOperation;
+import com.expense_recoder.interfaces.HorizontalScrollViewListener;
+import com.expense_recoder.interfaces.ScrollViewListener;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
 
-public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener,ScrollViewListener { 
+public class HomeActivity extends Activity implements OnEditorActionListener,OnClickListener,ScrollViewListener,HorizontalScrollViewListener { 
 
 	private static String strTitle = "No title";
 	private static int nameId = 0;
@@ -33,6 +35,8 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 	private DatabaseOperation mDataOperation;
 	private ObservableScrollView observableScrollViewEvent = null;
 	private ObservableScrollView observableScrollViewData = null;
+	private ObservableHorizontalScrollView observableHorizontalScrollViewName = null;
+	private ObservableHorizontalScrollView observableHorizontalScrollViewData = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		observableScrollViewData= (ObservableScrollView)findViewById(R.id.observableScrollViewData);
 		observableScrollViewEvent.setScrollViewListener(this);
 		observableScrollViewData.setScrollViewListener(this);
+		observableHorizontalScrollViewName = (ObservableHorizontalScrollView) findViewById(R.id.horizontalScrollViewName);
+		observableHorizontalScrollViewData=(ObservableHorizontalScrollView) findViewById(R.id.horizontalScrollViewData);
+		observableHorizontalScrollViewName.setHorizontalScrollViewListener(this);
+		observableHorizontalScrollViewData.setHorizontalScrollViewListener(this);
 		
 		editTextTitle = (EditText) findViewById(R.id.editTextTitle);
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
@@ -60,6 +68,7 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		
 		strTitle = v.getText().toString();
 		if (!strTitle.equals("")) {
 			setTitleAsTextView(strTitle);
@@ -103,11 +112,9 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 				EditText editTextDialog = (EditText)dialog.findViewById(R.id.editTextDialog);
 				String strEditText = editTextDialog.getText().toString();
 				if(strEditText.equals("")) {
-					
 				} else { 
 					((TextView)view).setText(editTextDialog.getText().toString());
 				}
-				
 				dialog.dismiss();
 			}
 		});
@@ -234,9 +241,18 @@ public class HomeActivity extends Activity implements OnEditorActionListener,OnC
 		super.onBackPressed();
 	}
 
+
+	@Override
+	public void onScrollChanged(ObservableHorizontalScrollView scrollView, int x, int y,int oldX, int oldY) {
+		if (scrollView == observableHorizontalScrollViewName) {
+			observableHorizontalScrollViewData.scrollTo(x, y);
+		} else if(scrollView == observableHorizontalScrollViewData){
+			observableHorizontalScrollViewName.scrollTo(x, y);
+		}
+	}
+	
 	@Override
 	public void onScrollChanged(ObservableScrollView scrollView, int x, int y,int oldX, int oldY) {
-		
 		if (scrollView == observableScrollViewEvent) {
 			observableScrollViewData.scrollTo(x, y);
 		} else if(scrollView == observableScrollViewData){
