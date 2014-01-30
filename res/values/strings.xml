@@ -13,5 +13,7 @@
     
     <string name="ok">OK</string>
     <string name="save">Save</string>
+    <string name="create_new_record">Create new record</string>
+    <string name="preset_trip_records">Trip records</string>
 
 </resources>

@@ -1,0 +1,156 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/occasion_name"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_width="@dimen/event_width"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background_disable"
+            android:onClick="onClickSave"
+            android:text="@string/save" />
+
+        <com.expense_recoder.scrollview.ObservableHorizontalScrollView
+            android:id="@+id/horizontalScrollViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/name_height"
+                android:background="@drawable/linear_layout_shape"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageViewAddName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/hello_world"
+                    android:onClick="onClickAddName"
+                    android:padding="8dp"
+                    android:src="@drawable/add" />
+
+                <ImageView
+                    android:id="@+id/imageViewSubstractName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/hello_world"
+                    android:onClick="onClickSubstractName"
+                    android:padding="8dp"
+                    android:src="@drawable/substract" />
+            </LinearLayout>
+        </com.expense_recoder.scrollview.ObservableHorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <com.expense_recoder.scrollview.ObservableScrollView
+            android:id="@+id/observableScrollViewEvent"
+            android:layout_width="@dimen/event_width"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:background="@drawable/linear_layout_shape" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutEvent"
+                    android:layout_width="@dimen/event_width"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1" >
+
+                    <ImageView
+                        android:id="@+id/imageViewAddEvent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:contentDescription="@string/hello_world"
+                        android:onClick="onClickAddEvent"
+                        android:padding="8dp"
+                        android:src="@drawable/add" />
+
+                    <ImageView
+                        android:id="@+id/imageViewSubstractEvent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:contentDescription="@string/hello_world"
+                        android:onClick="onClickSubstractEvent"
+                        android:padding="8dp"
+                        android:src="@drawable/substract" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.expense_recoder.scrollview.ObservableScrollView>
+
+        <com.expense_recoder.scrollview.ObservableScrollView
+            android:id="@+id/observableScrollViewData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:background="@drawable/linear_layout_shape"
+            android:scrollbarSize="12dip" >
+
+            <com.expense_recoder.scrollview.ObservableHorizontalScrollView
+                android:id="@+id/horizontalScrollViewData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="12dip"
+                android:scrollbars="none" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </com.expense_recoder.scrollview.ObservableHorizontalScrollView>
+        </com.expense_recoder.scrollview.ObservableScrollView>
+    </LinearLayout>
+
+</LinearLayout>

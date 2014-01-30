@@ -9,13 +9,13 @@ import com.expense_recoder.util.LOG;
 
 public class RecordManager {
 
-	HomeActivity mContext;
+	CreateTripRecordActivity mContext;
 	private LinearLayout linearLayoutData;
 	private int existingRow = 0;
 	private int existingColumn = 0;
 
-	public RecordManager(HomeActivity homeActivity) {
-		this.mContext = homeActivity;
+	public RecordManager(CreateTripRecordActivity mCreateTripRecordActivity) {
+		this.mContext = mCreateTripRecordActivity;
 		linearLayoutData = (LinearLayout) mContext.findViewById(R.id.linearLayoutData);
 	}
 
@@ -23,10 +23,7 @@ public class RecordManager {
 		if(Constants.IS_ADDING_FIRST_TIME && numberOfColumn > 0 && numberOfRow > 0 ) {
 			LOG.v("RecordManager", "for the first time");
 			for (int i = 0; i < numberOfColumn; i++) {
-				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
-				linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
-				linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
-				linearLayoutColumn.setId(numberOfColumn);
+				LinearLayout linearLayoutColumn = createNewColumnLayoutWithId(numberOfColumn);
 				for (int j = 0; j < numberOfRow; j++) {
 					linearLayoutColumn.addView(addField());
 				}
@@ -46,10 +43,7 @@ public class RecordManager {
 			} 
 			if (  numberOfColumn > existingColumn ) {
 				LOG.v("RecordManager", "additional column added");
-				LinearLayout linearLayoutColumn = new LinearLayout(mContext);
-				linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
-				linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
-				linearLayoutColumn.setId(numberOfColumn);
+				LinearLayout linearLayoutColumn = createNewColumnLayoutWithId(numberOfColumn);
 				for (int i = 0; i < numberOfRow; i++) {
 					linearLayoutColumn.addView(addField());
 				}
@@ -57,6 +51,14 @@ public class RecordManager {
 				setExistingRowColumnValue(numberOfRow,numberOfColumn);
 			}
 		}
+	}
+
+	private LinearLayout createNewColumnLayoutWithId(int numberOfColumn) {
+		LinearLayout linearLayoutColumn = new LinearLayout(mContext);
+		linearLayoutColumn.setOrientation(LinearLayout.VERTICAL);
+		linearLayoutColumn.setMinimumWidth(Constants.WIDTH);
+		linearLayoutColumn.setId(numberOfColumn);
+		return linearLayoutColumn;
 	}
 
 	private void setExistingRowColumnValue(int numberOfRow, int numberOfColumn) { 

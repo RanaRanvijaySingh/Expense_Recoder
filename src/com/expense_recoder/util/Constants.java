@@ -5,7 +5,7 @@ public class Constants {
 	public final static int TEXT_SIZE_TITLE = 20;
 	public final static int TEXT_SIZE_GENERAL = 18;
 	public final static int HEIGHT_EDIT_TEXT = 60;
-	public final static int WIDTH = 120;
+	public final static int WIDTH = 110;
 	public final static int NAMES = 0;
 	public final static int EVENTS = 1;
 
