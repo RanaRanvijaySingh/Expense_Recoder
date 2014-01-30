@@ -5,26 +5,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.expense_recoder.database.DatabaseOperation;
+import com.expense_recoder.util.LOG;
+
 public class RecordListAdapter extends BaseAdapter{
 	Context mContext;
+	String [] strArrayTripNames;
 	public RecordListAdapter(RecordListActivity recordListActivity) {
 		this.mContext = recordListActivity;
+		DatabaseOperation mDatabaseOperation = new DatabaseOperation(mContext);
+		if(mDatabaseOperation.getAllDistinctTripName()!=null) {
+			strArrayTripNames = mDatabaseOperation.getAllDistinctTripName();
+			LOG.v("adapter","names reciived");
+		}
 	}
 
 	@Override
 	public int getCount() {
-		return 0;
+		return strArrayTripNames.length;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

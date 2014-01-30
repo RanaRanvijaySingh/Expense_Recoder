@@ -96,6 +96,20 @@ public class DatabaseOperation {
 		database.delete(DataBaseHelper.DATABASE_TABLE_OCCASION, whereClauseOccasion, new String []{string});
 		database.delete(DataBaseHelper.DATABASE_TABLE_RECORD, whereClauseRecord, new String []{string});
 	}
-
+	
+	public String [] getAllDistinctTripName() {
+		Cursor mCursor = database.rawQuery(DataBaseHelper.OCCASION_TABLE_SELECT_ALL_TRIP_NAME, null);
+		if (mCursor != null) {
+			String [] strArrayTripNames = new String [mCursor.getCount()];
+			int i=0;
+			while (mCursor.moveToNext()) {
+				strArrayTripNames[i] = mCursor.getString(0);
+				LOG.v("trip name",strArrayTripNames[i++]);
+			}
+			return strArrayTripNames;
+		} else {
+			return null;
+		}
+	}
 }
 

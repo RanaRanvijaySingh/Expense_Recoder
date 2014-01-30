@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.expense_recoder.CreateTripRecordActivity" >
-        </activity>
+        <activity android:name="com.expense_recoder.CreateTripRecordActivity" />
+        <activity android:name="com.expense_recoder.RecordListActivity" />
     </application>
 
 </manifest>

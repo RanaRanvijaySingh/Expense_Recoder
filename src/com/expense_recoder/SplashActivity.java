@@ -23,7 +23,7 @@ public class SplashActivity extends Activity {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} finally {
-					startActivity(new Intent(getApplicationContext(),CreateTripRecordActivity.class));
+					startActivity(new Intent(getApplicationContext(),RecordListActivity.class));
 					finish();
 				}
 			}
