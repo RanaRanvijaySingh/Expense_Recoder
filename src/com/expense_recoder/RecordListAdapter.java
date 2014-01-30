@@ -1,9 +1,11 @@
 package com.expense_recoder;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.expense_recoder.database.DatabaseOperation;
 import com.expense_recoder.util.LOG;
@@ -37,8 +39,11 @@ public class RecordListAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
+		LayoutInflater mInflater = LayoutInflater.from(mContext);
+		convertView = mInflater.inflate(R.layout.record_list_element, null);
+		TextView textViewRecordElement = (TextView)convertView.findViewById(R.id.textViewRecordElement);
+		textViewRecordElement.setText(strArrayTripNames[position]);
+		return convertView;
 	}
 
 }

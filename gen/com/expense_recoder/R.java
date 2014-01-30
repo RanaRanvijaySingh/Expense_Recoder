@@ -33,7 +33,7 @@ public final class R {
         public static final int table_background=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080010;
+        public static final int action_settings=0x7f080011;
         public static final int buttonDialogOk=0x7f08000f;
         public static final int editTextDialog=0x7f08000e;
         public static final int editTextTitle=0x7f080000;
@@ -49,6 +49,7 @@ public final class R {
         public static final int listViewRecord=0x7f08000d;
         public static final int observableScrollViewData=0x7f08000a;
         public static final int observableScrollViewEvent=0x7f080006;
+        public static final int textViewRecordElement=0x7f080010;
         public static final int textViewTitle=0x7f080001;
     }
     public static final class layout {
@@ -56,6 +57,7 @@ public final class R {
         public static final int activity_record_list=0x7f030001;
         public static final int activity_splash=0x7f030002;
         public static final int dialog_box=0x7f030003;
+        public static final int record_list_element=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f070000;
