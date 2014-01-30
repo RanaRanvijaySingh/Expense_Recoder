@@ -22,7 +22,7 @@ public class RecordListAdapter extends BaseAdapter{
 		DatabaseOperation mDatabaseOperation = new DatabaseOperation(mContext);
 		if(mDatabaseOperation.getAllDistinctTripName()!=null) {
 			strArrayTripNames = mDatabaseOperation.getAllDistinctTripName();
-			LOG.v("adapter","names reciived");
+//			LOG.v("adapter","names recived");
 		}
 		mDatabaseOperation.close();
 	}

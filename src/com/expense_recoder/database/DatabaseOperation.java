@@ -104,7 +104,7 @@ public class DatabaseOperation {
 			int i=0;
 			while (mCursor.moveToNext()) {
 				strArrayTripNames[i] = mCursor.getString(0);
-				LOG.v("trip name",strArrayTripNames[i++]);
+//				LOG.v("trip name",strArrayTripNames[i++]);
 			}
 			return strArrayTripNames;
 		} else {
