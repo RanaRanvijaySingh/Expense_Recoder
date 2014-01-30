@@ -3,6 +3,7 @@ package com.expense_recoder;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -57,7 +58,6 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		textViewTitle.setOnClickListener(this);
 		mRecordManager = new RecordManager(this);
 		mDataOperation = new DatabaseOperation(this);
-		mDataOperation.close();
 	}
 	
 	private void checkForIntent() {
@@ -65,8 +65,9 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
 			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
 			LOG.v("intent had",strTripName);
-			
+			mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
 		} 
+		mDataOperation.close();
 	}
 
 	private void initializeConstants() {

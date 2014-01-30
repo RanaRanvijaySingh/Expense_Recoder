@@ -14,15 +14,15 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 	private static final String TAG = GetField.class.getName();
 
 	public static final String KEY_ROWID = "_id";
-	public static final String KEY_TRIP_ID_OCCASION = "trip_id";
-	public static final String KEY_TRIP_NAME = "trip_name";
-	public static final String KEY_EVENT_ID_OCCASION = "event_id";
-	public static final String KEY_EVENT_NAME = "event_name";
+	public static final String KEY_OCCASION_TRIP_ID = "trip_id";
+	public static final String KEY_OCCASION_TRIP_NAME = "trip_name";
+	public static final String KEY_OCCASION_EVENT_ID= "event_id";
+	public static final String KEY_OCCASION_EVENT_NAME = "event_name";
 
-	public static final String KEY_TRIP_ID_RECORD = "trip_id";
-	public static final String KEY_EVENT_ID_RECORD = "event_id";
-	public static final String KEY_NAME = "name";
-	public static final String KEY_CONTRIBUTION = "contribution";
+	public static final String KEY_RECORD_TRIP_ID = "trip_id";
+	public static final String KEY_RECORD_EVENT_ID = "event_id";
+	public static final String KEY_RECORD_NAME = "name";
+	public static final String KEY_RECORD_CONTRIBUTION = "contribution";
 
 	public static final String DATABASE_TABLE_OCCASION = "occasion";
 	public static final String DATABASE_TABLE_RECORD = "record";
@@ -35,13 +35,13 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 			+ "("
 			+ KEY_ROWID
 			+ " integer primary key autoincrement, "
-			+ KEY_TRIP_ID_OCCASION
+			+ KEY_OCCASION_TRIP_ID
 			+ " text not null, "
-			+ KEY_TRIP_NAME
+			+ KEY_OCCASION_TRIP_NAME
 			+ " text not null, "
-			+ KEY_EVENT_ID_OCCASION
+			+ KEY_OCCASION_EVENT_ID
 			+ " text, "
-			+ KEY_EVENT_NAME
+			+ KEY_OCCASION_EVENT_NAME
 			+ " text "
 			+ ");";
 
@@ -50,19 +50,19 @@ public class DataBaseHelper extends SQLiteOpenHelper  {
 			+ "(" 
 			+ KEY_ROWID
 			+ " integer primary key autoincrement, " 
-			+ KEY_TRIP_ID_RECORD
+			+ KEY_RECORD_TRIP_ID
 			+ " text not null, " 
-			+ KEY_EVENT_ID_RECORD 
+			+ KEY_RECORD_EVENT_ID 
 			+ " text, " 
-			+ KEY_NAME
+			+ KEY_RECORD_NAME
 			+ " text , " 
-			+ KEY_CONTRIBUTION 
+			+ KEY_RECORD_CONTRIBUTION 
 			+ " integer " 
 			+ ");";
 	
 	public static final String OCCASION_TABLE_SELECT_ALL_ROW = "SELECT "+KEY_ROWID+" FROM "+ DATABASE_TABLE_OCCASION;
-	public static final String OCCASION_TABLE_SELECT_ALL_TRIP_NAME = "SELECT DISTINCT "+KEY_TRIP_NAME+" FROM "+ DATABASE_TABLE_OCCASION;
-	public static final String OCCASION_TABLE_SELECT_TRIP_NAME = "SELECT "+KEY_TRIP_NAME+" FROM "+ DATABASE_TABLE_OCCASION;
+	public static final String OCCASION_TABLE_SELECT_ALL_TRIP_NAME = "SELECT DISTINCT "+KEY_OCCASION_TRIP_NAME+" FROM "+ DATABASE_TABLE_OCCASION;
+	public static final String OCCASION_TABLE_SELECT_TRIP_NAME = "SELECT "+KEY_OCCASION_TRIP_NAME+" FROM "+ DATABASE_TABLE_OCCASION;
 	private static final String DATABASE_UPGRADE_OCCASION = "DROP TABLE IF EXISTS "+ DATABASE_TABLE_OCCASION;
 	private static final String DATABASE_UPGRADE_RECORD = "DROP TABLE IF EXISTS "	+ DATABASE_TABLE_RECORD;
 
