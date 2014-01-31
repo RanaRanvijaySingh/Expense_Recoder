@@ -20,10 +20,8 @@ public class RecordListActivity extends Activity {
 		setContentView(R.layout.activity_record_list);
 	}
 	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		setListView();
+	public void onClickCreateNewRecord(View view) {
+		startActivity(new Intent(this,CreateTripRecordActivity.class));
 	}
 	
 	private void setListView() {
@@ -31,7 +29,6 @@ public class RecordListActivity extends Activity {
 		RecordListAdapter mAdapter = new RecordListAdapter(this);
 		listViewRecord.setAdapter(mAdapter);
 		listViewRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position,long arg3) {
 				LinearLayout layout = (LinearLayout)view;
@@ -42,6 +39,11 @@ public class RecordListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setListView();
 	}
 }

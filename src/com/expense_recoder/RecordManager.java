@@ -120,7 +120,25 @@ public class RecordManager {
 	}
 
 	public void setRecordData(List<OccasionModel> listOccasions,List<RecordModel> listRecords) {
+		int c=0;
+		int numberOfColumn = listRecords.size()/listOccasions.size();
+		int numberOfRow = listOccasions.size();
+		for (int i = 0; i < numberOfColumn; i++) {
+			LinearLayout linearLayoutColumn = createNewColumnLayoutWithId(i);
+			linearLayoutData.addView(linearLayoutColumn);
+		}
 		
+		
+		for (int i = 0; i < numberOfRow; i++) {
+			for (int j = 0; j < numberOfColumn; j++) {
+				LinearLayout linearLayoutColumn = (LinearLayout) linearLayoutData.getChildAt(j);
+				EditText editText = addField();
+				editText.setText(listRecords.get(c++).getContribution());
+				linearLayoutColumn.addView(editText);
+			}
+		}
+		Constants.IS_ADDING_FIRST_TIME = false;
+		setExistingRowColumnValue(numberOfRow,numberOfColumn);
 	}
 
 }

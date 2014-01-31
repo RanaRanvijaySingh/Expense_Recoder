@@ -143,7 +143,8 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 	}
 
 	private void setTitleAsTextView(String strTitle) {
-		textViewTitle.setText(strTitle);
+		this.strTitle=strTitle;
+		textViewTitle.setText(this.strTitle);
 		textViewTitle.setVisibility(View.VISIBLE);
 		editTextTitle.setVisibility(View.GONE);
 	}
@@ -213,6 +214,7 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 
 	private TextView getTextView(int id, String name) {
 		TextView textView = new TextView(this);
+		textView.setSingleLine(true);
 		textView.setId(id);
 		textView.setGravity(1);
 		textView.setPadding(10, 8, 10, 8);
