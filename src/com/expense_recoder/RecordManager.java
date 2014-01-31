@@ -1,11 +1,15 @@
 package com.expense_recoder;
 
+import java.util.List;
+
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
+import com.exponse_recoder.model.OccasionModel;
+import com.exponse_recoder.model.RecordModel;
 
 public class RecordManager {
 
@@ -113,6 +117,10 @@ public class RecordManager {
 		LinearLayout mLayoutRow = (LinearLayout)linearLayoutData.getChildAt(row);
 		EditText mEditText = (EditText)mLayoutRow.getChildAt(column);
 		return mEditText.getText().toString();
+	}
+
+	public void setRecordData(List<OccasionModel> listOccasions,List<RecordModel> listRecords) {
+		
 	}
 
 }

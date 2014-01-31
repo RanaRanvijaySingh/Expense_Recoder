@@ -28,6 +28,7 @@ import com.expense_recoder.scrollview.ObservableScrollView;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
 import com.exponse_recoder.model.OccasionModel;
+import com.exponse_recoder.model.RecordModel;
 
 public class CreateTripRecordActivity extends Activity implements OnEditorActionListener,OnClickListener,ScrollViewListener,HorizontalScrollViewListener { 
 
@@ -89,12 +90,15 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
 			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
 			LOG.v("intent had: ",strTripName);
-			List<OccasionModel> listOccasions = mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
-//			List<OccasionModel> listRecords= mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_RECORD, strTripName);
-			if(listOccasions!=null){
+			List<OccasionModel> listOccasions = mDataOperation.getAllRowsFromOccasion(strTripName);
+			String [] strArrayTripIds = getAllTripIdFromOccasion(listOccasions);
+			List<RecordModel> listRecords= mDataOperation.getAllRowsFromRecord(strArrayTripIds);	
+			int numberOfNames = listRecords.size()/listOccasions.size();
+			if(listOccasions!=null && listRecords != null){
 				setTitleAsTextView(strTripName);
 				setEvents(listOccasions);
-//				setNames(listOccasions);
+				setNames(listRecords,numberOfNames);
+				setData(listOccasions,listRecords);
 			} else {
 				Toast.makeText(this, "Problem with database.", Toast.LENGTH_LONG).show();
 			}
@@ -102,10 +106,10 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		mDataOperation.close();
 	}
 	
-	private void setTitleAsTextView(String strTitle) {
-		textViewTitle.setText(strTitle);
-		textViewTitle.setVisibility(View.VISIBLE);
-		editTextTitle.setVisibility(View.GONE);
+
+	private void setData(List<OccasionModel> listOccasions, List<RecordModel> listRecords) {
+			RecordManager mRecordManager = new RecordManager(this);
+			mRecordManager.setRecordData(listOccasions,listRecords);
 	}
 
 	private void setEvents(List<OccasionModel> listOccasions) {
@@ -116,6 +120,32 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 			linearLayoutEvent.addView(textViewEvent);
 			eventId++;
 		}
+	}
+	
+	private void setNames(List<RecordModel> listRecords, int numberOfNames) {
+		for (int i=0;i<numberOfNames;i++) {
+			RecordModel recordModel = listRecords.get(i);
+			TextView textViewName = getTextView(nameId, Constants.NAME);
+			textViewName.setText(recordModel.getName());
+			linearLayoutName.addView(textViewName);
+			nameId++;
+		}
+	}
+
+	private String[] getAllTripIdFromOccasion(List<OccasionModel> listOccasions) {
+		String [] strArrayTripIds = new String[listOccasions.size()];
+		int i=0;
+		for (Iterator iterator = listOccasions.iterator(); iterator.hasNext();) {
+			OccasionModel occasionModel = (OccasionModel) iterator.next();
+			strArrayTripIds[i++] = occasionModel.getTripId();
+		}
+		return strArrayTripIds;
+	}
+
+	private void setTitleAsTextView(String strTitle) {
+		textViewTitle.setText(strTitle);
+		textViewTitle.setVisibility(View.VISIBLE);
+		editTextTitle.setVisibility(View.GONE);
 	}
 
 	@Override

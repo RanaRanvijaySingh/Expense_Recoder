@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import android.database.Cursor;
 import com.exponse_recoder.model.OccasionModel;
+import com.exponse_recoder.model.RecordModel;
 
 public class DatabaseRecordParser {
 	private final String TAG = getClass().getName();
@@ -27,6 +28,24 @@ public class DatabaseRecordParser {
 			listOccasions.add(mOccasionModel);
 		}
 		return listOccasions;
+	}
+
+	public RecordModel getRecordData(Cursor mCursor) {
+		RecordModel mRecordModel = new RecordModel();
+		mRecordModel.setTripId(mCursor.getString(0));
+		mRecordModel.setEventId(mCursor.getString(1));
+		
+		if (mCursor.getString(3)==null) {
+			mRecordModel.setName("");
+		} else {
+			mRecordModel.setName(mCursor.getString(2));
+		}
+		if (mCursor.getString(3)==null) {
+			mRecordModel.setContribution("");
+		} else {
+			mRecordModel.setContribution(mCursor.getString(3));
+		}
+		return mRecordModel;
 	}
 
 }

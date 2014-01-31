@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.expense_recoder.util.LOG;
 import com.exponse_recoder.model.OccasionModel;
+import com.exponse_recoder.model.RecordModel;
 
 public class DatabaseOperation {
 	
@@ -124,9 +125,10 @@ public class DatabaseOperation {
 		}
 	}
 	
-	public List<OccasionModel> getAllRows(String strTable, String strColumn) {
+	public List<OccasionModel> getAllRowsFromOccasion(String strColumn) {
 		String whereClause = DataBaseHelper.KEY_OCCASION_TRIP_NAME+ " = ? ";
-		Cursor mCursor = database.query(strTable, occasionAllColumn, whereClause, new String[]{strColumn}, null,null,null);
+		Cursor mCursor = database.query(DataBaseHelper.DATABASE_TABLE_OCCASION, 
+				occasionAllColumn, whereClause, new String[]{strColumn}, null,null,null);
 		if(mCursor == null) {
 			return null;
 		} else {
@@ -134,6 +136,25 @@ public class DatabaseOperation {
 			List<OccasionModel> listOccasions = mParser.getOccasionData(mCursor);
 			return listOccasions;
 		}
+	}
+	
+	public List<RecordModel> getAllRowsFromRecord(String[] strArrayTripIds) {
+		List<RecordModel> listRecordModel = new ArrayList<RecordModel>();
+		String whereClause = DataBaseHelper.KEY_RECORD_TRIP_ID+" = ? ";
+		for (int i = 0; i < strArrayTripIds.length; i++) {
+			Cursor mCursor = database.query(DataBaseHelper.DATABASE_TABLE_RECORD,
+				recordAllColumn, whereClause, new String[]{strArrayTripIds[i]},	null,null,null	);
+			if(mCursor == null) {
+				return null;
+			} else {
+				while(mCursor.moveToNext()) {
+					DatabaseRecordParser mDatabaseRecordParser = new DatabaseRecordParser();
+					RecordModel mRecordModel = mDatabaseRecordParser.getRecordData(mCursor);
+					listRecordModel.add(mRecordModel);
+				}
+			}
+		}
+		return listRecordModel;
 	}
 }
 
