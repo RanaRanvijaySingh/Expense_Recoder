@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.expense_recoder.util.LOG;
 import com.exponse_recoder.model.OccasionModel;
@@ -123,7 +124,7 @@ public class DatabaseOperation {
 		}
 	}
 	
-	public Cursor getAllRows(String strTable, String strColumn) {
+	public List<OccasionModel> getAllRows(String strTable, String strColumn) {
 		String whereClause = DataBaseHelper.KEY_OCCASION_TRIP_NAME+ " = ? ";
 		Cursor mCursor = database.query(strTable, occasionAllColumn, whereClause, new String[]{strColumn}, null,null,null);
 		if(mCursor == null) {
@@ -131,7 +132,7 @@ public class DatabaseOperation {
 		} else {
 			DatabaseRecordParser mParser = new DatabaseRecordParser();
 			List<OccasionModel> listOccasions = mParser.getOccasionData(mCursor);
-			return null;
+			return listOccasions;
 		}
 	}
 }

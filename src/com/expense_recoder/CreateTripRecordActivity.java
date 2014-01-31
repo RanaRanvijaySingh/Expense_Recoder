@@ -1,5 +1,7 @@
 package com.expense_recoder;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -24,6 +26,7 @@ import com.expense_recoder.scrollview.ObservableHorizontalScrollView;
 import com.expense_recoder.scrollview.ObservableScrollView;
 import com.expense_recoder.util.Constants;
 import com.expense_recoder.util.LOG;
+import com.exponse_recoder.model.OccasionModel;
 
 public class CreateTripRecordActivity extends Activity implements OnEditorActionListener,OnClickListener,ScrollViewListener,HorizontalScrollViewListener { 
 
@@ -64,8 +67,13 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		Intent intent = getIntent();
 		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
 			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
-			LOG.v("intent had",strTripName);
-			mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
+			LOG.v("intent had: ",strTripName);
+			List<OccasionModel> listOccasions = mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
+			if(listOccasions!=null){
+				setTitleAsTextView(strTripName);
+			} else {
+				Toast.makeText(this, "Problem with database.", Toast.LENGTH_LONG).show();
+			}
 		} 
 		mDataOperation.close();
 	}
