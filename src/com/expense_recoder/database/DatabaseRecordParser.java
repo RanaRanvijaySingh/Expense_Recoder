@@ -14,15 +14,15 @@ public class DatabaseRecordParser {
 			OccasionModel mOccasionModel = new OccasionModel();
 			mOccasionModel.setTripId(mCursor.getString(0));
 			mOccasionModel.setTripName(mCursor.getString(1));
-			if (mCursor.getString(2)!=null) {
-				mOccasionModel.setTripName("");
+			if (mCursor.getString(2)==null) {
+				mOccasionModel.setEventId("");
 			} else {
-				mOccasionModel.setTripName(mCursor.getString(2));
+				mOccasionModel.setEventId(mCursor.getString(2));
 			}
-			if (mCursor.getString(3)!=null) {
-				mOccasionModel.setTripName("");
+			if (mCursor.getString(3)==null) {
+				mOccasionModel.setEventName("");
 			} else {
-				mOccasionModel.setTripName(mCursor.getString(3));
+				mOccasionModel.setEventName(mCursor.getString(3));
 			}
 			listOccasions.add(mOccasionModel);
 		}

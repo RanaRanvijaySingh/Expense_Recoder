@@ -1,5 +1,6 @@
 package com.expense_recoder;
 
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -55,6 +56,8 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 	private void initializeComponents() {
 		initializeConstants();
 		initializeScrollViewComponents();
+		linearLayoutEvent = (LinearLayout)findViewById(R.id.linearLayoutEvent);
+		linearLayoutName = (LinearLayout)findViewById(R.id.linearLayoutName);
 		editTextTitle = (EditText) findViewById(R.id.editTextTitle);
 		textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 		editTextTitle.setOnEditorActionListener(this);
@@ -63,21 +66,6 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		mDataOperation = new DatabaseOperation(this);
 	}
 	
-	private void checkForIntent() {
-		Intent intent = getIntent();
-		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
-			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
-			LOG.v("intent had: ",strTripName);
-			List<OccasionModel> listOccasions = mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
-			if(listOccasions!=null){
-				setTitleAsTextView(strTripName);
-			} else {
-				Toast.makeText(this, "Problem with database.", Toast.LENGTH_LONG).show();
-			}
-		} 
-		mDataOperation.close();
-	}
-
 	private void initializeConstants() {
 		nameId = 0;
 		eventId = 0;
@@ -95,6 +83,40 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		observableHorizontalScrollViewName.setHorizontalScrollViewListener(this);
 		observableHorizontalScrollViewData.setHorizontalScrollViewListener(this);
 	}
+	
+	private void checkForIntent() {
+		Intent intent = getIntent();
+		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
+			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
+			LOG.v("intent had: ",strTripName);
+			List<OccasionModel> listOccasions = mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_OCCASION, strTripName);
+//			List<OccasionModel> listRecords= mDataOperation.getAllRows(DataBaseHelper.DATABASE_TABLE_RECORD, strTripName);
+			if(listOccasions!=null){
+				setTitleAsTextView(strTripName);
+				setEvents(listOccasions);
+//				setNames(listOccasions);
+			} else {
+				Toast.makeText(this, "Problem with database.", Toast.LENGTH_LONG).show();
+			}
+		} 
+		mDataOperation.close();
+	}
+	
+	private void setTitleAsTextView(String strTitle) {
+		textViewTitle.setText(strTitle);
+		textViewTitle.setVisibility(View.VISIBLE);
+		editTextTitle.setVisibility(View.GONE);
+	}
+
+	private void setEvents(List<OccasionModel> listOccasions) {
+		for (Iterator iterator = listOccasions.iterator(); iterator.hasNext();) {
+			OccasionModel occasionModel = (OccasionModel) iterator.next();
+			TextView textViewEvent = getTextView(eventId, Constants.EVENT);
+			textViewEvent.setText(occasionModel.getEventName());
+			linearLayoutEvent.addView(textViewEvent);
+			eventId++;
+		}
+	}
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -107,12 +129,6 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 			setTitleAsTextView(strTitle);
 		}
 		return true;
-	}
-
-	private void setTitleAsTextView(String strTitle) {
-		textViewTitle.setText(strTitle);
-		textViewTitle.setVisibility(View.VISIBLE);
-		editTextTitle.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -153,7 +169,6 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 
 	public void onClickAddName(View view) {
 		LOG.i("clicked", "add name " + nameId);
-		linearLayoutName = (LinearLayout)findViewById(R.id.linearLayoutName);
 		linearLayoutName.addView(getTextView(nameId,Constants.NAME));
 		nameId++;
 		mRecordManager.addEntry(eventId, nameId);
@@ -161,7 +176,6 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 	
 	public void onClickAddEvent(View view) {
 		LOG.i("clicked", "add event " + eventId);
-		linearLayoutEvent = (LinearLayout)findViewById(R.id.linearLayoutEvent);
 		linearLayoutEvent.addView(getTextView(eventId, Constants.EVENT));
 		eventId++;
 		mRecordManager.addEntry(eventId, nameId);
