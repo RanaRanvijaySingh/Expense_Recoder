@@ -335,4 +335,9 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 			observableScrollViewEvent.scrollTo(x, y);
 		}
 	}
+
+	public void setNameEventId(int numberOfRow, int numberOfColumn) {
+		nameId=numberOfRow+1;
+		eventId=numberOfColumn;
+	}
 }

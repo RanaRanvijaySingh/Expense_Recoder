@@ -127,8 +127,6 @@ public class RecordManager {
 			LinearLayout linearLayoutColumn = createNewColumnLayoutWithId(i);
 			linearLayoutData.addView(linearLayoutColumn);
 		}
-		
-		
 		for (int i = 0; i < numberOfRow; i++) {
 			for (int j = 0; j < numberOfColumn; j++) {
 				LinearLayout linearLayoutColumn = (LinearLayout) linearLayoutData.getChildAt(j);
@@ -137,6 +135,7 @@ public class RecordManager {
 				linearLayoutColumn.addView(editText);
 			}
 		}
+//		mContext.setNameEventId(numberOfRow,numberOfColumn);
 		Constants.IS_ADDING_FIRST_TIME = false;
 		setExistingRowColumnValue(numberOfRow,numberOfColumn);
 	}
