@@ -9,9 +9,11 @@ public class Constants {
 	public final static int NAMES = 0;
 	public final static int EVENTS = 1;
 
-	public final static String NAME = "Name";
-	public final static String EVENT = "Event";
+	public static String NAME = "Name";
+	public static String EVENT = "Event";
+	public static String DATA = "Data";
 	public static final String SELECTED_TRIP = "Trip";
 	public static final float EDIT_TEXT_SIZE_GENERAL = 14;
 	public static boolean IS_ADDING_FIRST_TIME = true;
+
 }

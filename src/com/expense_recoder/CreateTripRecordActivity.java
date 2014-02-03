@@ -1,5 +1,6 @@
 package com.expense_recoder;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -313,6 +314,14 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 	
 	public void onClickCompute(View view) {
 		if(nameId > 0 && eventId > 0) {
+			LinearLayout linearLayoutData = mRecordManager.getData();
+			ExpenseManager mExpenseManager = new ExpenseManager(linearLayoutData,linearLayoutName,linearLayoutEvent);
+			Intent intent = new Intent(this,ExpenseManager.class);
+			List<LinearLayout> value = new ArrayList<LinearLayout>();
+			value.add(linearLayoutData);
+			value.add(linearLayoutName);
+			value.add(linearLayoutEvent);
+			startActivity(intent);
 			
 		} else {
 			Toast.makeText(this, getResources().getString(R.string.add_data_for_computation), Toast.LENGTH_SHORT).show();

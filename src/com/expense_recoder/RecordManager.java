@@ -140,4 +140,8 @@ public class RecordManager {
 		setExistingRowColumnValue(numberOfRow,numberOfColumn);
 	}
 
+	public LinearLayout getData() {
+		return linearLayoutData;
+	}
+
 }
