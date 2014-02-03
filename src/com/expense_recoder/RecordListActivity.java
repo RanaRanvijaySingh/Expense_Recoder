@@ -11,13 +11,17 @@ import android.widget.TextView;
 
 import com.expense_recoder.adapter.RecordListAdapter;
 import com.expense_recoder.util.Constants;
+import com.expense_recoder.util.ThemeProgressDialog;
 
 public class RecordListActivity extends Activity {
+
+	protected ThemeProgressDialog mProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_record_list);
+		mProgressDialog = new ThemeProgressDialog(RecordListActivity.this);
 	}
 	
 	public void onClickCreateNewRecord(View view) {
@@ -29,8 +33,10 @@ public class RecordListActivity extends Activity {
 		RecordListAdapter mAdapter = new RecordListAdapter(this);
 		listViewRecord.setAdapter(mAdapter);
 		listViewRecord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position,long arg3) {
+				mProgressDialog.show();
 				LinearLayout layout = (LinearLayout)view;
 				TextView mTextView = (TextView)layout.getChildAt(0);
 				String strSelectedTrip = mTextView.getText().toString();
@@ -44,6 +50,7 @@ public class RecordListActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		mProgressDialog.dismiss();
 		setListView();
 	}
 }

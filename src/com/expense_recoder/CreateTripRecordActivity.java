@@ -6,7 +6,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -271,7 +270,7 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 				mDataOperation.close();
 			}
 		} else {
-			Toast.makeText(this, "There is not data to save.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.no_data_to_save), Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -310,6 +309,14 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		strArrayRecord[2] = mTextView.getText().toString();
 		strArrayRecord[3] = mRecordManager.getElementAt(row,column);
 		return strArrayRecord;
+	}
+	
+	public void onClickCompute(View view) {
+		if(nameId > 0 && eventId > 0) {
+			
+		} else {
+			Toast.makeText(this, getResources().getString(R.string.add_data_for_computation), Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	@Override

@@ -2,18 +2,21 @@
 <resources>
 
     <string name="action_settings">Settings</string>
+    <string name="add_data_for_computation">You need to add data before computation.</string>
     <string name="app_name">Expense-Recoder</string>
+    <string name="create_new_record">Create new record</string>
+    <string name="compute">Compute</string>
     <string name="event_name">Event name</string>
+    <string name="give_a_name">Give a name</string>
+    <string name="give_occasion_name">Please give the occasion name.</string>
     <string name="header">Header</string>
     <string name="hello_world">Hello world!</string>
     <string name="occasion_name">Occasion name</string>
-    <string name="rename_the_field">Rename the field.</string>
-    <string name="give_a_name">Give a name</string>
-     <string name="give_occasion_name">Please give the occasion name.</string>
-    
     <string name="ok">OK</string>
-    <string name="save">Save</string>
-    <string name="create_new_record">Create new record</string>
+    <string name="please_wait">please wait</string>
     <string name="preset_trip_records">Trip records</string>
+    <string name="rename_the_field">Rename the field.</string>
+    <string name="save">Save</string>
+    <string name="no_data_to_save">There is not data to save.</string>
 
 </resources>
