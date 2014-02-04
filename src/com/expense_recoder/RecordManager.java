@@ -65,7 +65,7 @@ public class RecordManager {
 		return linearLayoutColumn;
 	}
 
-	private void setExistingRowColumnValue(int numberOfRow, int numberOfColumn) { 
+	public void setExistingRowColumnValue(int numberOfRow, int numberOfColumn) { 
 		existingRow = numberOfRow;
 		existingColumn = numberOfColumn;		
 	}
@@ -139,5 +139,4 @@ public class RecordManager {
 		Constants.IS_ADDING_FIRST_TIME = false;
 		setExistingRowColumnValue(numberOfRow,numberOfColumn);
 	}
-
 }

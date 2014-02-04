@@ -88,16 +88,17 @@ public class CreateTripRecordActivity extends Activity implements OnEditorAction
 		Intent intent = getIntent();
 		if(intent.hasExtra(Constants.SELECTED_TRIP)) {
 			String strTripName = intent.getExtras().getString(Constants.SELECTED_TRIP);
-			LOG.v("intent had: ",strTripName);
 			List<OccasionModel> listOccasions = mDataOperation.getAllRowsFromOccasion(strTripName);
 			String [] strArrayTripIds = getAllTripIdFromOccasion(listOccasions);
 			List<RecordModel> listRecords= mDataOperation.getAllRowsFromRecord(strArrayTripIds);	
 			int numberOfNames = listRecords.size()/listOccasions.size();
+			int numberOfEvents = listOccasions.size();
 			if(listOccasions!=null && listRecords != null){
 				setTitleAsTextView(strTripName);
 				setEvents(listOccasions);
 				setNames(listRecords,numberOfNames);
 				setData(listOccasions,listRecords);
+				mRecordManager.setExistingRowColumnValue(numberOfEvents,numberOfNames);
 			} else {
 				Toast.makeText(this, "Problem with database.", Toast.LENGTH_LONG).show();
 			}
